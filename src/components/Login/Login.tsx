@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useHistory, Redirect } from "react-router-dom";
 import { Modal, Button, Input, Alert } from "antd";
 import axios from "axios";
 import { ip } from "../../utils/api";
-import { logged, storeUser } from "../../utils/login";
+import { logged, storeUser, isLogged } from "../../utils/login";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 const Login: React.FC = () => {
@@ -12,6 +12,8 @@ const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
+
+  const [isConnected, setIsConnect] = useState(false);
 
   const login = async () => {
     let request = await axios.post(`${ip}/login`, {
@@ -36,8 +38,15 @@ const Login: React.FC = () => {
     setPassword(event.target.value);
   };
 
+  useEffect(() => {
+    if (isLogged()) {
+      setIsConnect(true);
+    }
+  }, []);
+
   return (
     <div>
+      {isConnected && <Redirect to="/dashboard" />}
       <Modal
         footer={[
           <Button key="submit" type="primary" onClick={login}>
