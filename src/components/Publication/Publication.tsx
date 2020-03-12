@@ -1,12 +1,12 @@
 import React from "react";
 import Navbar from "./../Navbar/Navbar";
-const Dashboard: React.FC = () => {
+const Publication: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <p>Dashboard</p>
+      <p>Publication</p>
     </div>
   );
 };
 
-export default Dashboard;
+export default Publication;

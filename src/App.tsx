@@ -8,6 +8,8 @@ import {
 import Login from "./components/Login/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
 import { isLogged } from "./utils/login";
+import Trombinoscope from "./components/Trombinoscope/Trombinoscope";
+import Publication from "./components/Publication/Publication";
 
 const App: React.FC = () => {
   const PrivateRoute = ({ component, ...rest }: any) => {
@@ -28,6 +30,9 @@ const App: React.FC = () => {
     <Router>
       <Switch>
         <PrivateRoute path="/dashboard/" component={Dashboard} />
+        <PrivateRoute path="/trombinoscope/" component={Trombinoscope} />
+        <PrivateRoute path="/publication/" component={Publication} />
+        <PrivateRoute path="/logout/" component={Dashboard} />
         <Route path="/" exact component={Login} />
       </Switch>
     </Router>

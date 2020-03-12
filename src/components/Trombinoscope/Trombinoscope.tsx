@@ -1,12 +1,12 @@
 import React from "react";
 import Navbar from "./../Navbar/Navbar";
-const Dashboard: React.FC = () => {
+const Trombinoscope: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <p>Dashboard</p>
+      <p>Trombinoscope</p>
     </div>
   );
 };
 
-export default Dashboard;
+export default Trombinoscope;
