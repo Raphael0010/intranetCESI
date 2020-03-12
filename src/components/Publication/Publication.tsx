@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./../Navbar/Navbar";
-import { Collapse } from 'antd';
+import { Collapse } from "antd";
 import { ip } from "../../utils/api";
-import { IPublication } from "./../Publication/IPublication";
+import { IPublication } from "../../interfaces/IPublication";
 import axios from "axios";
-import "./../Publication/Publication.css"
+import "./../Publication/Publication.css";
+import { Divider } from "antd";
 
 const Publication: React.FC = () => {
-
   const { Panel } = Collapse;
 
   const [informations, setInformations] = useState<IPublication[]>([]);
 
   useEffect(() => {
     getPublication();
-  },[]);
+  }, []);
 
   const getPublication = async () => {
-    let request = await axios.get(`${ip}/publication`, {})
+    let request = await axios.get(`${ip}/publication`, {});
     const data: IPublication[] = [];
 
     if (request.data) {
@@ -27,8 +27,8 @@ const Publication: React.FC = () => {
           titre: e[1],
           texte: e[2],
           date: e[3]
-        })
-      };
+        });
+      }
     }
     setInformations(data);
   };
@@ -36,15 +36,20 @@ const Publication: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <h1 className="title">Publication</h1>
+      <Divider
+        orientation="center"
+        style={{ color: "#333", fontWeight: "normal" }}
+      >
+        <h1 className="title">Publication</h1>
+      </Divider>
       {informations &&
-          informations.map(e => ((
-            <Collapse defaultActiveKey={['1','2','3']} key={e.id}>
-              <Panel header={e.titre} key={e.id}>
-                <p>{e.texte}</p>
-              </Panel>
-            </Collapse>
-         )))}
+        informations.map(e => (
+          <Collapse defaultActiveKey={["1", "2", "3"]} key={e.id}>
+            <Panel header={e.titre} key={e.id}>
+              <p>{e.texte}</p>
+            </Panel>
+          </Collapse>
+        ))}
     </div>
   );
 };
