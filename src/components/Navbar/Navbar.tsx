@@ -1,15 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { Menu } from "antd";
 import {
   HomeOutlined,
   PictureOutlined,
   BookOutlined,
-  PoweroffOutlined
+  PoweroffOutlined,
+  UserOutlined
 } from "@ant-design/icons";
 import cesi from "../../assets/cesi.png";
-
+import { logout, getUser } from "../../utils/login";
 const Navbar: React.FC = () => {
+  let history = useHistory();
+  const [username, setUsername] = useState("N/A");
+  const deconnexion = () => {
+    logout();
+    history.replace("/");
+  };
+
+  useEffect(() => {
+    let user = getUser();
+    if (user) {
+      setUsername(user);
+    }
+  }, [username]);
   return (
     <>
       <Menu mode="horizontal">
@@ -34,11 +48,14 @@ const Navbar: React.FC = () => {
             Publication
           </Link>
         </Menu.Item>
+
+        <Menu.Item style={{ float: "right" }} onClick={deconnexion}>
+          <PoweroffOutlined style={{ marginRight: "5px" }} />
+          Déconnexion
+        </Menu.Item>
         <Menu.Item style={{ float: "right" }}>
-          <Link to="/logout/">
-            <PoweroffOutlined style={{ marginRight: "5px" }} />
-            Déconnexion
-          </Link>
+          <UserOutlined style={{ marginRight: "5px" }} />
+          {username}
         </Menu.Item>
       </Menu>
     </>

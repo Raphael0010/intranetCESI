@@ -13,3 +13,12 @@ export const isLogged = (): boolean => {
     return false;
   }
 };
+
+export const logout = (): void => {
+  localStorage.removeItem("login");
+  localStorage.removeItem("user");
+};
+
+export const getUser = () => {
+  return localStorage.getItem("user");
+};
