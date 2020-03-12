@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
+import Login from "./components/Login/Login";
+import Dashboard from "./components/Dashboard/Dashboard";
+import { isLogged } from "./utils/login";
 
-function App() {
+const App: React.FC = () => {
+  const PrivateRoute = ({ component, ...rest }: any) => {
+    let isAuthenticated = false;
+    if (isLogged()) {
+      isAuthenticated = true;
+    }
+    const routeComponent = (props: any) =>
+      isAuthenticated ? (
+        React.createElement(component, props)
+      ) : (
+        <Redirect to={{ pathname: "/" }} />
+      );
+    return <Route {...rest} render={routeComponent} />;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <PrivateRoute path="/dashboard/" component={Dashboard} />
+        <Route path="/" exact component={Login} />
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
