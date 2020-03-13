@@ -115,8 +115,15 @@ const Dashboard: React.FC = () => {
       <Modal
         title="Ajouter un évenement"
         visible={modal}
-        onOk={addEvenement}
         onCancel={closeModal}
+        footer={
+          <div>
+            <Button onClick={closeModal}>Fermer</Button>
+            <Button type="primary" onClick={addEvenement}>
+              Ajouter
+            </Button>
+          </div>
+        }
       >
         <Input
           style={{ marginBottom: "1%" }}

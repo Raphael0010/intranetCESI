@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Button, Select, Input, Modal, message, DatePicker } from "antd";
+import React, { useState } from "react";
+import { Button, Input, Modal, message, DatePicker } from "antd";
 import { ip } from "../../utils/api";
 import axios from "axios";
 
@@ -11,14 +11,13 @@ interface Props {
   reloadList: () => void;
 }
 
-const ModalAddPublication: React.FC<Props> = ({ visible, setVisible, reloadList }) => {
-  const { Option } = Select;
-
+const ModalAddPublication: React.FC<Props> = ({
+  visible,
+  setVisible,
+  reloadList
+}) => {
   const [prenom, setPrenom] = useState("");
   const [nom, setNom] = useState("");
-  const [poste, setPoste] = useState(0);
-  const [motDePasse, setMotDePasse] = useState("");
-  const [email, setEmail] = useState("");
   const [date, setDate] = useState(Date);
 
   const onChangePrenom = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +26,6 @@ const ModalAddPublication: React.FC<Props> = ({ visible, setVisible, reloadList 
   const onChangeNom = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNom(event.target.value);
   };
-
 
   const createPublication = () => {
     axios
@@ -68,14 +66,23 @@ const ModalAddPublication: React.FC<Props> = ({ visible, setVisible, reloadList 
           </div>
         }
       >
-        <Input placeholder="Titre" onChange={onChangePrenom} />
-        <br />
-        <br />
-        <Input placeholder="Texte" onChange={onChangeNom} />
-        <br />
-        <br />
-        <DatePicker onChange={onChange} style={{ width: "100%" }} />
-        <br />
+        <Input
+          style={{ marginBottom: "1%" }}
+          placeholder="Titre de la publication"
+          onChange={onChangePrenom}
+        />
+
+        <Input
+          style={{ marginBottom: "1%" }}
+          placeholder="Contenu de la publication"
+          onChange={onChangeNom}
+        />
+
+        <DatePicker
+          placeholder="Date de la publication"
+          onChange={onChange}
+          style={{ width: "100%" }}
+        />
       </Modal>
     </div>
   );

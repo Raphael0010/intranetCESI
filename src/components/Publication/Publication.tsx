@@ -37,8 +37,8 @@ const Publication: React.FC = () => {
 
   const reloadList = () => {
     getPublication();
-  }
-  
+  };
+
   const showModalAdd = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     setVisibleModalAdd(true);
   };
@@ -52,23 +52,25 @@ const Publication: React.FC = () => {
       >
         <h1 className="title">Publication</h1>
       </Divider>
-      <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
-        <Button
-          onClick={showModalAdd}>
-            Ajouter une publication
-        </Button>
+      <div style={{ marginLeft: "10%", marginBottom: "2%" }}>
+        <Button onClick={showModalAdd}>Ajouter une publication</Button>
       </div>
-      <br/><br/>
       {informations &&
         informations.map(e => (
           <Collapse defaultActiveKey={["1", "2", "3"]} key={e.id}>
             <Panel header={e.titre} key={e.id}>
-              <i>{e.date.split(" ")[1]+" "+e.date.split(" ")[2]+" "+e.date.split(" ")[3]}</i>
+              <i>
+                {e.date.split(" ")[1] +
+                  " " +
+                  e.date.split(" ")[2] +
+                  " " +
+                  e.date.split(" ")[3]}
+              </i>
               <p>{e.texte}</p>
             </Panel>
           </Collapse>
         ))}
-        
+
       <ModalAddPublication
         visible={visibleModalAdd}
         setVisible={setVisibleModalAdd}
