@@ -42,10 +42,10 @@ const Trombinoscope: React.FC = () => {
       >
         <h1 className="title">Trombinoscope</h1>
       </Divider>
-      <Row gutter={24}>
+      <Row justify="center">
         {trombinoscope &&
           trombinoscope.map(e => (
-            <Col className="gutter-row" span={4}>
+            <Col xs={20} sm={16} md={12} lg={8} xl={{ span: 4, offset: 1 }}>
               <Card
                 key={e.id}
                 hoverable
