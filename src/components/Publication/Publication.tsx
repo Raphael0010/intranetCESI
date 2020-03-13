@@ -5,12 +5,14 @@ import { ip } from "../../utils/api";
 import { IPublication } from "../../interfaces/IPublication";
 import axios from "axios";
 import "./../Publication/Publication.css";
-import { Divider } from "antd";
+import { Divider, Button } from "antd";
+import ModalAddPublication from "../ModalAddPublication/ModalAddPublication";
 
 const Publication: React.FC = () => {
   const { Panel } = Collapse;
 
   const [informations, setInformations] = useState<IPublication[]>([]);
+  const [visibleModalAdd, setVisibleModalAdd] = useState(false);
 
   useEffect(() => {
     getPublication();
@@ -33,6 +35,14 @@ const Publication: React.FC = () => {
     setInformations(data);
   };
 
+  const reloadList = () => {
+    getPublication();
+  }
+  
+  const showModalAdd = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setVisibleModalAdd(true);
+  };
+
   return (
     <div>
       <Navbar />
@@ -42,6 +52,13 @@ const Publication: React.FC = () => {
       >
         <h1 className="title">Publication</h1>
       </Divider>
+      <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
+        <Button
+          onClick={showModalAdd}>
+            Ajouter une publication
+        </Button>
+      </div>
+      <br/><br/>
       {informations &&
         informations.map(e => (
           <Collapse defaultActiveKey={["1", "2", "3"]} key={e.id}>
@@ -50,6 +67,12 @@ const Publication: React.FC = () => {
             </Panel>
           </Collapse>
         ))}
+        
+      <ModalAddPublication
+        visible={visibleModalAdd}
+        setVisible={setVisibleModalAdd}
+        reloadList={reloadList}
+      />
     </div>
   );
 };
