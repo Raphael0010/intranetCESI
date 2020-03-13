@@ -63,6 +63,7 @@ const Publication: React.FC = () => {
         informations.map(e => (
           <Collapse defaultActiveKey={["1", "2", "3"]} key={e.id}>
             <Panel header={e.titre} key={e.id}>
+              <i>{e.date.split(" ")[1]+" "+e.date.split(" ")[2]+" "+e.date.split(" ")[3]}</i>
               <p>{e.texte}</p>
             </Panel>
           </Collapse>
